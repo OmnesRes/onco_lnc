@@ -27,17 +27,17 @@ data=[i.split('\t') for i in f]
 clinical1=[['','','']]
 for i in data:
     if clinical1[-1][0]==i[patient_column]:
-        if re.search('^[0-9]+$',i[alive_column]):
-            clinical1[-1]=[i[patient_column],int(i[alive_column]),'Alive']
-        elif re.search('^[0-9]+$',i[death_column]):
+        if re.search('^[0-9]+$',i[death_column]):
             clinical1[-1]=[i[patient_column],int(i[death_column]),'Dead']
+        elif re.search('^[0-9]+$',i[alive_column]):
+            clinical1[-1]=[i[patient_column],int(i[alive_column]),'Alive']
         else:
             pass
     else:
-        if re.search('^[0-9]+$',i[alive_column]):
-            clinical1.append([i[patient_column],int(i[alive_column]),'Alive'])
-        elif re.search('^[0-9]+$',i[death_column]):
+        if re.search('^[0-9]+$',i[death_column]):
             clinical1.append([i[patient_column],int(i[death_column]),'Dead'])
+        elif re.search('^[0-9]+$',i[alive_column]):
+            clinical1.append([i[patient_column],int(i[alive_column]),'Alive'])
         else:
             pass
 
@@ -73,10 +73,10 @@ data=[i.split('\t') for i in f]
 for i in data:
     try:
         more_clinical[i[patient_column]]=[0,sex_dict[i[sex_column]],int(i[age_column])]
-        if re.search('^[0-9]+$',i[alive_column]):
-            clinical4.append([i[patient_column],int(i[alive_column]),'Alive'])
-        elif re.search('^[0-9]+$',i[death_column]):
+        if re.search('^[0-9]+$',i[death_column]):
             clinical4.append([i[patient_column],int(i[death_column]),'Dead'])
+        elif re.search('^[0-9]+$',i[alive_column]):
+            clinical4.append([i[patient_column],int(i[alive_column]),'Alive'])
         else:
             pass
     except:
@@ -176,8 +176,8 @@ for i in clinical_and_files:
         mirnas.append(zip([z[0] for z in temp[0]],list(sum([np.array(kkk) for kkk in values])/float(len(temp)))))
 
 
-## Only want mirnas that meet an expression cutoff
-## A cutoff of .5 reads per million mirna mapped and no more than a fourth of the patients containing no expression was chosen
+#### Only want mirnas that meet an expression cutoff
+#### A cutoff of .5 reads per million mirna mapped and no more than a fourth of the patients containing no expression was chosen
 final_mirnas=[[]]*len(mirnas)
 for i in range(len(mirnas[0])):
     temp=[]
@@ -199,6 +199,9 @@ for i in final_mirnas:
     f.write(str(i))
     f.write('\n')
 f.close()
+
+
+
 
 ##Performing Cox regression on all of the mirnas in final_mirnas
 

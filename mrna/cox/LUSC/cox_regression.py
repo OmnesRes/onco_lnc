@@ -29,17 +29,17 @@ data=[i.split('\t') for i in f]
 clinical1=[['','','']]
 for i in data:
     if clinical1[-1][0]==i[patient_column]:
-        if re.search('^[0-9]+$',i[alive_column]):
-            clinical1[-1]=[i[patient_column],int(i[alive_column]),'Alive']
-        elif re.search('^[0-9]+$',i[death_column]):
+        if re.search('^[0-9]+$',i[death_column]):
             clinical1[-1]=[i[patient_column],int(i[death_column]),'Dead']
+        elif re.search('^[0-9]+$',i[alive_column]):
+            clinical1[-1]=[i[patient_column],int(i[alive_column]),'Alive']
         else:
             pass
     else:
-        if re.search('^[0-9]+$',i[alive_column]):
-            clinical1.append([i[patient_column],int(i[alive_column]),'Alive'])
-        elif re.search('^[0-9]+$',i[death_column]):
+        if re.search('^[0-9]+$',i[death_column]):
             clinical1.append([i[patient_column],int(i[death_column]),'Dead'])
+        elif re.search('^[0-9]+$',i[alive_column]):
+            clinical1.append([i[patient_column],int(i[alive_column]),'Alive'])
         else:
             pass
 
@@ -74,10 +74,10 @@ data=[i.split('\t') for i in f]
 for i in data:
     try:
         more_clinical[i[patient_column]]=[0,sex_dict[i[sex_column]],int(i[age_column])]
-        if re.search('^[0-9]+$',i[alive_column]):
-            clinical4.append([i[patient_column],int(i[alive_column]),'Alive'])
-        elif re.search('^[0-9]+$',i[death_column]):
+        if re.search('^[0-9]+$',i[death_column]):
             clinical4.append([i[patient_column],int(i[death_column]),'Dead'])
+        elif re.search('^[0-9]+$',i[alive_column]):
+            clinical4.append([i[patient_column],int(i[alive_column]),'Alive'])
         else:
             pass
     except:
@@ -196,6 +196,7 @@ for i in final_genes:
     f.write(str(i))
     f.write('\n')
 f.close()
+
 
 
 ##Performing Cox regression on all of the genes in final_genes

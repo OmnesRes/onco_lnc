@@ -33,17 +33,17 @@ data=[i.split('\t') for i in f]
 clinical1=[['','','']]
 for i in data:
     if clinical1[-1][0]==i[patient_column]:
-        if re.search('^[0-9]+$',i[alive_column]):
-            clinical1[-1]=[i[patient_column],int(i[alive_column]),'Alive']
-        elif re.search('^[0-9]+$',i[death_column]):
+        if re.search('^[0-9]+$',i[death_column]):
             clinical1[-1]=[i[patient_column],int(i[death_column]),'Dead']
+        elif re.search('^[0-9]+$',i[alive_column]):
+            clinical1[-1]=[i[patient_column],int(i[alive_column]),'Alive']
         else:
             pass
     else:
-        if re.search('^[0-9]+$',i[alive_column]):
-            clinical1.append([i[patient_column],int(i[alive_column]),'Alive'])
-        elif re.search('^[0-9]+$',i[death_column]):
+        if re.search('^[0-9]+$',i[death_column]):
             clinical1.append([i[patient_column],int(i[death_column]),'Dead'])
+        elif re.search('^[0-9]+$',i[alive_column]):
+            clinical1.append([i[patient_column],int(i[alive_column]),'Alive'])
         else:
             pass
 
@@ -64,17 +64,17 @@ clinical2=[['','','']]
 for i in data:
     if i[patient_column] not in [j[0] for j in clinical]:
         if clinical2[-1][0]==i[patient_column]:
-            if re.search('^[0-9]+$',i[alive_column]):
-                clinical2[-1]=[i[patient_column],int(i[alive_column]),'Alive']
-            elif re.search('^[0-9]+$',i[death_column]):
+            if re.search('^[0-9]+$',i[death_column]):
                 clinical2[-1]=[i[patient_column],int(i[death_column]),'Dead']
+            elif re.search('^[0-9]+$',i[alive_column]):
+                clinical2[-1]=[i[patient_column],int(i[alive_column]),'Alive']
             else:
                 pass
         else:
-            if re.search('^[0-9]+$',i[alive_column]):
-                clinical2.append([i[patient_column],int(i[alive_column]),'Alive'])
-            elif re.search('^[0-9]+$',i[death_column]):
+            if re.search('^[0-9]+$',i[death_column]):
                 clinical2.append([i[patient_column],int(i[death_column]),'Dead'])
+            elif re.search('^[0-9]+$',i[alive_column]):
+                clinical2.append([i[patient_column],int(i[alive_column]),'Alive'])
             else:
                 pass
 
@@ -118,10 +118,10 @@ data=[i.split('\t') for i in f]
 for i in data:
     try:
         more_clinical[i[patient_column]]=[grade_dict[i[grade_column]],sex_dict[i[sex_column]],int(i[age_column])]
-        if re.search('^[0-9]+$',i[alive_column]):
-            clinical4.append([i[patient_column],int(i[alive_column]),'Alive'])
-        elif re.search('^[0-9]+$',i[death_column]):
+        if re.search('^[0-9]+$',i[death_column]):
             clinical4.append([i[patient_column],int(i[death_column]),'Dead'])
+        elif re.search('^[0-9]+$',i[alive_column]):
+            clinical4.append([i[patient_column],int(i[alive_column]),'Alive'])
         else:
             pass
     except:
@@ -216,8 +216,8 @@ for i in clinical_and_files:
 
 
 
-## Only want genes that meet an expression cutoff
-## A cutoff of 1 RSEM and no more than a fourth of the patients containing no expression was chosen
+#### Only want genes that meet an expression cutoff
+#### A cutoff of 1 RSEM and no more than a fourth of the patients containing no expression was chosen
 final_genes=[[]]*len(genes)
 for i in range(len(genes[0])):
     temp=[]
@@ -242,6 +242,8 @@ for i in final_genes:
     f.write(str(i))
     f.write('\n')
 f.close()
+
+
 
 
 ##Performing Cox regression on all of the genes in final_genes
