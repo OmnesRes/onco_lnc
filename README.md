@@ -9,7 +9,7 @@ For the miRNA Cox regressions, counting.py, located in the mirna folder, will ne
 
 For the MiTranscriptome beta analysis, processing.py, located in the lncrna folder, will need to be run on mitranscriptome.expr.counts.tsv from http://mitranscriptome.org/.  Warning, this script may require over 6GB of RAM.  Place the resulting files in the correct locations for each cancer.
 
-Once the expression files are in the correct locations you should be able to successfully run the desired Cox regressions.  Go the cancer of interest and run the cox_regression.py file from the command line.  This code was run with Python 2.7, rpy2, and NumPy.  I don't know if it will run on other Python versions.
+Once the expression files are in the correct locations you should be able to successfully run the desired Cox regressions.  Go to the cancer of interest and run the cox_regression.py file from the command line.  This code was run with Python 2.7, rpy2, and NumPy.  I don't know if it will run on other Python versions.
 
 The resulting file is already included in the repository.  You can rename this file and check if you get the same results with your analysis.
 
